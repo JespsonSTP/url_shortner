@@ -17,7 +17,7 @@ pipeline {
                 script {
                     app = docker.build("jespstpierre/urlshortner")
                     app.inside{
-                        sh " py.test --verbose --junit-xml test-reports/pytest-results.xml test_app.py"
+                        sh " echo $(curl localhost:5000)"
                     }
                 }
             }
