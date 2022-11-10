@@ -51,7 +51,9 @@ def commitID() {
 
 //this is a function to build the app
 def buildapp(){
-    appImage = docker.build("jespstpierre/urlshortner")
+    dir("/app"){
+        appImage = docker.build("jespstpierre/urlshortner")
+    }
 }
 def pushtodockerhub(){
     dir("/app"){
