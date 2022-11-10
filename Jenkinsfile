@@ -12,12 +12,12 @@ pipeline {
                 }
             }
         }
-        stage('Push to DockerHub'){
+        stage('Pushing to Dockerhub'){
             steps{
-                scripts {
+                script {
                     app = docker.build("jespstpierre/urlshortner")
                     app.inside{
-                        sh "echo $(curl localhost:5000)"
+                        sh " py.test --verbose --junit-xml test-reports/pytest-results.xml test_app.py"
                     }
                 }
             }
