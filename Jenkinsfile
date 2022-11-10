@@ -14,7 +14,21 @@ pipeline {
     }
     
     stages {
+        stage('Unit-testing'){
+            script {
+                def app = buildapp()
+                app.inside {
+                    sh "pip3 install --no-cache-dir -r ./app/requirements.txt"
+	                sh "py.test --verbose --junit-xml test-reports/pytest-results.xml"
+                }
+            }
+        }
         stage('Build'){
+            steps{
+                sh"echo we are checkout"
+            }
+        }
+        stage('Deploy to dev'){
             steps{
                 sh"echo we are checkout"
             }
@@ -29,16 +43,11 @@ def commitID() {
    commitID
 }
 
-//run unit test in a docker env
-def runUnittests() {
-	sh "pip3 install --no-cache-dir -r ./app/requirements.txt"
-	sh "py.test --verbose --junit-xml test-reports/pytest-results.xml"
-}
 
 //this is a function to build the app
 def buildapp(){
     dir("/app"){
-        def appImage = docker.build("jespstpierre/recipeservice:${BUILD_NUMBER}")
+        def appImage = docker.build("jespstpierre/urlshortner:${BUILD_NUMBER}")
     }
 }
 def pushtodockerhub(){
