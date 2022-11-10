@@ -17,11 +17,7 @@ pipeline {
         stage('Unit-testing'){
             steps{
                 script {
-                    def app = buildapp()
-                    app.inside {
-                        sh "pip3 install --no-cache-dir -r ./app/requirements.txt"
-                        sh "py.test --verbose --junit-xml test-reports/pytest-results.xml"
-                    }
+                    buildapp()
                 }
             }
         }
@@ -49,7 +45,7 @@ def commitID() {
 //this is a function to build the app
 def buildapp(){
     dir("/app"){
-        def appImage = docker.build("jespstpierre/urlshortner")
+        sh"echo im in app looking for dockerfile"
     }
 }
 def pushtodockerhub(){
