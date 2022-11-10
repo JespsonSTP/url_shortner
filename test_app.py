@@ -1,4 +1,4 @@
-from application import app, greet
+from app import app, greet
 
 def test_home_page():
     response = app.test_client().get('/')
