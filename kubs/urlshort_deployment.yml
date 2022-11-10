@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: urlshortner
+
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector: 
+    matchLabels: 
+      app: urlshortner
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  
+  
+  template:
+    metadata:
+      labels:
+        app: urlshortner
+
+    spec:
+      containers:
+        - name: urlshortner
+          image: jespstpierre/urlshortner:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              protocol: TCP

@@ -11,4 +11,4 @@ COPY . .
 # exposing our app port in docker internal network
 EXPOSE 5000
 # run the application
-CMD gunicorn --bind 0.0.0.0:8000 wsgi:app
+CMD gunicorn --bind 0.0.0.0:5000 wsgi:app
