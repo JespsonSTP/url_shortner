@@ -5,7 +5,7 @@ pipeline {
         stage('Unit-testing'){
             steps{
                 script {
-                    app = buildapp()
+                    app = docker.build("jespstpierre/urlshortner")
                     app.inside{
                         sh '''#!/bin/bash
                             echo "hello world"
