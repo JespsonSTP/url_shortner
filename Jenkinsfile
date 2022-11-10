@@ -7,11 +7,7 @@ pipeline {
                 script {
                     app = docker.build("jespstpierre/urlshortner")
                     app.inside{
-                        sh '''#!/bin/bash
-                            echo "hello world"
-                            pip3 install --no-cache-dir -r ./app/requirements.txt
-                            py.test --verbose --junit-xml test-reports/pytest-results.xml
-                        '''
+                        sh " py.test --verbose --junit-xml test-reports/pytest-results.xml test_app.py"
                     }
                 }
             }
