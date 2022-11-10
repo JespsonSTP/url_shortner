@@ -15,11 +15,13 @@ pipeline {
     
     stages {
         stage('Unit-testing'){
-            script {
-                def app = buildapp()
-                app.inside {
-                    sh "pip3 install --no-cache-dir -r ./app/requirements.txt"
-	                sh "py.test --verbose --junit-xml test-reports/pytest-results.xml"
+            steps{
+                script {
+                    def app = buildapp()
+                    app.inside {
+                        sh "pip3 install --no-cache-dir -r ./app/requirements.txt"
+                        sh "py.test --verbose --junit-xml test-reports/pytest-results.xml"
+                    }
                 }
             }
         }
