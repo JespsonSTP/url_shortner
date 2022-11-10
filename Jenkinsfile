@@ -14,10 +14,12 @@ pipeline {
         }
         stage('Push to DockerHub'){
             steps{
-                app = docker.build("jespstpierre/urlshortner")
+                scripts {
+                    app = docker.build("jespstpierre/urlshortner")
                     app.inside{
                         sh "echo $(curl localhost:5000)"
-                 }
+                    }
+                }
             }
         }
     }
