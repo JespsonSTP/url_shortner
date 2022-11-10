@@ -12,7 +12,7 @@ pipeline {
                 }
             }
         }
-        stage {
+        stage('Push to DockerHub'){
             steps{
                 app = docker.build("jespstpierre/urlshortner")
                     app.inside{
