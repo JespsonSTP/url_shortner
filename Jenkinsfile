@@ -1,6 +1,6 @@
 #! /usr/bin/groovy
 pipeline {
-    agent none
+    agent any
     triggers {
         githubPush()
     }
