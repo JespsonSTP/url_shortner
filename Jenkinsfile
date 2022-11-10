@@ -11,10 +11,13 @@ pipeline {
                     }
                 }
             }
-            post{
-                always {
-                  junit 'test-reports/results.xml'
-                }
+        }
+        stage {
+            steps{
+                app = docker.build("jespstpierre/urlshortner")
+                    app.inside{
+                        sh "echo $(curl localhost:5000)"
+                 }
             }
         }
     }
