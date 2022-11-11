@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: urlshortner-service
+  name: urlshortner-service-canary
 
 spec:
   type: ClusterIP
@@ -9,31 +9,29 @@ spec:
     - port: 5000
   selector:
     app: urlshortner
+    track: canary
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: urlshortner
+  name: urlshortner-deployment-canary
+  labels:
+    app: urlshortner
 
 spec:
-  replicas: 2
+  replicas: $CANARY_REPLICAS
   revisionHistoryLimit: 10
   selector: 
     matchLabels: 
       app: urlshortner
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
-  
-  
+      track: canary
   template:
     metadata:
       labels:
         app: urlshortner
+        track: canary
 
     spec:
       containers:
