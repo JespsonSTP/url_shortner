@@ -12,12 +12,22 @@ pipeline {
                 }
             }
         }
-        stage('Pushing to Dockerhub'){
+        stage('Build Image'){
             steps{
                 script {
                     app = docker.build("jespstpierre/urlshortner")
-                    app.inside{
-                        sh 'echo $(curl localhost:5000)'
+                }
+            }
+        }
+        stage('Pushing to Dockerhub'){
+            when {
+                branch 'master'
+            }
+            steps{
+                script {
+                    docker.withRegistry('http://registry.hub.docker.com', 'docker_hub_login'){
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("Latest")
                     }
                 }
             }
