@@ -17,7 +17,7 @@ pipeline {
                 script {
                     app = docker.build("jespstpierre/urlshortner")
                     app.inside{
-                        sh " echo $(curl localhost:5000)"
+                        sh 'echo $(curl localhost:5000)'
                     }
                 }
             }
